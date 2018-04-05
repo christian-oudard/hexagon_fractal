@@ -6,37 +6,40 @@ import cairo
 
 tau = 2 * math.pi
 
+# Screen coordinates.
+SCALE = 350
+LINE_WIDTH = 0.108
+# WIDTH, HEIGHT = (SCALE * SIZE_X, SCALE * SIZE_Y)
+WIDTH = 1600
+HEIGHT = 900
+
 # World coordinates.
 # H is the height of an equilateral triangle with side 1.
 H = math.sqrt(3) / 2
 SIZE_X = 2 * H
 SIZE_Y = 3
-ORIGIN = (H, 1)
+# ORIGIN = (H, 1)
+ORIGIN = (WIDTH / 2 / SCALE, HEIGHT / 2 / SCALE)
 BASIS_U = (2*H, 0)
 BASIS_V = (H, 3/2)
 
-# Screen coordinates.
-SCALE = 256
-LINE_WIDTH = 0.108
-WIDTH, HEIGHT = (SCALE * SIZE_X, SCALE * SIZE_Y)
 
 # How many layers to recurse.
 DEPTH = 7
 
-
 # Colors.
 
 def html_to_rgb(color):
-    b = (color & 0xff) / 255
-    color >>= 8
-    g = (color & 0xff) / 255
-    color >>= 8
-    r = (color & 0xff) / 255
+    b = (color & 0x0000ff) / 255
+    g = ((color & 0x00ff00) >> 8) / 255
+    r = ((color & 0xff0000) >> 16) / 255
     return (r, g, b)
 
 
-BG_COLOR = html_to_rgb(0xF0F7F7)
-FG_COLOR = html_to_rgb(0x008297)
+BG_COLOR = html_to_rgb(0x101008)
+FG_COLOR = html_to_rgb(0x50A0A0)
+FG_ALPHA = 0.014
+FG_ALPHA_STEP = 0.006
 
 
 def main():
@@ -53,18 +56,18 @@ def main():
 
     # Fill background color.
     cr.set_source_rgb(*BG_COLOR)
-    cr.rectangle(0, 0, SIZE_X, SIZE_Y)
+    cr.rectangle(0, 0, WIDTH / SCALE, HEIGHT / SCALE)
     cr.fill()
 
     # Initialize line drawing.
     cr.set_line_width(LINE_WIDTH)
     cr.set_line_cap(cairo.LineCap.ROUND)
-    cr.set_source_rgba(*FG_COLOR, 0.013)
 
     # Draw hexagons.
     size = 1
-    for _ in range(DEPTH):
+    for d in range(DEPTH):
         cr.set_line_width(size * LINE_WIDTH)
+        cr.set_source_rgba(*FG_COLOR, FG_ALPHA + d * FG_ALPHA_STEP)
         hexagon_grid(cr, size)
         size /= 2
 
@@ -87,14 +90,14 @@ def hexagon_grid(cr, r):
             )
 
             # Don't draw hexagons out of bounds.
-            cx, cy = center
-            if (
-                cx < 0 - r or
-                cx > SIZE_X + r or
-                cy < 0 - r or
-                cy > SIZE_Y + r
-            ):
-                continue
+            # cx, cy = center
+            # if (
+            #     cx < 0 - r or
+            #     cx > SIZE_X + r or
+            #     cy < 0 - r or
+            #     cy > SIZE_Y + r
+            # ):
+            #     continue
 
             hexagon(cr, center, r)
 
