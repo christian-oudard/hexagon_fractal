@@ -6,18 +6,19 @@ import cairo
 
 tau = 2 * math.pi
 
-# Screen coordinates.
-SCALE = 350
-LINE_WIDTH = 0.108
-# WIDTH, HEIGHT = (SCALE * SIZE_X, SCALE * SIZE_Y)
-WIDTH = 1600
-HEIGHT = 900
-
 # World coordinates.
 # H is the height of an equilateral triangle with side 1.
 H = math.sqrt(3) / 2
 SIZE_X = 2 * H
 SIZE_Y = 3
+
+# Screen coordinates.
+SCALE = 256
+# SCALE = 350
+LINE_WIDTH = 0.108
+WIDTH, HEIGHT = (SCALE * SIZE_X, SCALE * SIZE_Y)
+# WIDTH, HEIGHT = 1600, 900
+
 # ORIGIN = (H, 1)
 ORIGIN = (WIDTH / 2 / SCALE, HEIGHT / 2 / SCALE)
 BASIS_U = (2*H, 0)
@@ -36,10 +37,10 @@ def html_to_rgb(color):
     return (r, g, b)
 
 
-BG_COLOR = html_to_rgb(0x101008)
-FG_COLOR = html_to_rgb(0x50A0A0)
-FG_ALPHA = 0.014
-FG_ALPHA_STEP = 0.006
+BG_COLOR = html_to_rgb(0x0B0007)
+FG_COLOR = html_to_rgb(0x00ABBA)
+FG_ALPHA = 0.013
+FG_ALPHA_STEP = 0.003
 
 
 def main():
