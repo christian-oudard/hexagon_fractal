@@ -13,11 +13,11 @@ SIZE_X = 2 * H
 SIZE_Y = 3
 
 # Screen coordinates.
-SCALE = 256
+SCALE = 512
 # SCALE = 350
 LINE_WIDTH = 0.108
-WIDTH, HEIGHT = (SCALE * SIZE_X, SCALE * SIZE_Y)
-# WIDTH, HEIGHT = 1600, 900
+# WIDTH, HEIGHT = (SCALE * SIZE_X, SCALE * SIZE_Y)
+WIDTH, HEIGHT = 2560, 1440
 
 # ORIGIN = (H, 1)
 ORIGIN = (WIDTH / 2 / SCALE, HEIGHT / 2 / SCALE)
@@ -80,7 +80,7 @@ def hexagon_grid(cr, r):
     hexagon(cr, ORIGIN, r)
 
     n = int(1 / r)
-    indices = list(range(-2*n, 2*n + 1))
+    indices = list(range(-5*n, 5*n + 1))
 
     for u in indices:
         for v in indices:
