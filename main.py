@@ -37,9 +37,9 @@ def html_to_rgb(color):
     return (r, g, b)
 
 
-BG_COLOR = html_to_rgb(0x0B0007)
-FG_COLOR = html_to_rgb(0x00ABBA)
-FG_ALPHA = 0.013
+BG_COLOR = html_to_rgb(0x10000D)
+FG_COLOR = html_to_rgb(0x00AEBA)
+FG_ALPHA = 0.014
 FG_ALPHA_STEP = 0.003
 
 
